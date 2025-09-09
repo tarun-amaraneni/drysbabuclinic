@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr Y S Babu Trust clinic</title>
+    <link rel="icon" type="image/png" href="useuse-Photoroom.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding-top: 100px; /* Adjust for navbar */
+    }
+
+.service-card .content {
+  padding: 16px;
+  background-color: #1D4ED8; /* Blue background */
+  color: #ffffff;             /* White text */
+  border-bottom-left-radius: 14px;  /* match card corners */
+  border-bottom-right-radius: 14px;
+  text-align: center;
+}
+
+.service-card .content .title {
+  color: #ffffff; /* ensure title text is white */
+}
+
+    .service-card {
+  background: var(--card);
+  border-radius: 14px;
+  overflow: hidden; /* keep for hover glow */
+  position: relative;
+  transform: translateZ(0);
+  transition: transform .35s cubic-bezier(.2,.9,.2,1),
+              box-shadow .35s ease, filter .35s ease;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.08);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* ensures card grows with text */
+}
+
+.service-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  flex-shrink: 0; /* image won’t shrink */
+}
+
+.service-card .content {
+  padding: 16px;
+  flex-grow: 1; /* allow text section to expand */
+  display: flex;
+  align-items: center; /* centers vertically */
+  justify-content: center; /* optional */
+  text-align: center; /* keeps titles neat */
+  min-height: 60px; /* prevents clipping */
+}
+
+.service-card .title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937; /* text color */
+  line-height: 1.4;
+  word-wrap: break-word; /* break long words */
+}
+
+
+    /* Accordion Cards */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .card:hover { transform: translateY(-5px); }
+    .card h3 { margin: 0; font-size: 18px; color: #2c3e50; }
+    .plus {
+      position: absolute; top: 20px; right: 20px;
+      font-size: 20px; color: #27ae60;
+      transition: transform 0.3s ease;
+    }
+    .plus.rotate { transform: rotate(45deg); }
+    .content {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      font-size: 14px; color: #555; margin-top: 0px;
+    }
+    .content.show { max-height: 300px; padding-top: 10px; }
+
+    /* Service Cards Grid */
+    :root{
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --muted: #6b7280;
+    }
+    .wrap { max-width:1200px; margin:48px auto; padding:0 20px 80px; }
+    .grid { display:grid; gap:20px; grid-template-columns: repeat(1, 1fr); }
+    @media (min-width:700px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width:980px){ .grid{ grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width:1200px){ .grid{ grid-template-columns: repeat(4, 1fr); } }
+
+    .service-card {
+      background: var(--card);
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      transform: translateZ(0);
+      transition: transform .35s cubic-bezier(.2,.9,.2,1), 
+                  box-shadow .35s ease, filter .35s ease;
+      box-shadow: 0 6px 18px rgba(15,23,42,0.08);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tarun{
+      text-align: center;
+      padding-bottom: 15px;
+    }
+    .service-card img {
+      width: 100%; height: 180px; object-fit: cover;
+    }
+    .service-card .content { padding: 16px; }
+    .service-card .title { font-size: 1.05rem; margin: 0; }
+
+    .service-card:hover {
+      transform: translateY(-12px) scale(1.02) rotateX(4deg);
+      box-shadow: 0 20px 45px rgba(2,6,23,0.18);
+      filter: brightness(1.02) saturate(1.03);
+    }
+    .service-card::after {
+      content: ''; position: absolute; inset: 0; border-radius: 14px;
+      pointer-events: none; transition: opacity .35s ease, transform .35s ease;
+      opacity: 0; transform: scale(.98);
+      background: radial-gradient(600px 200px at 10% 10%, rgba(99,102,241,0.08), transparent 20%),
+                  radial-gradient(400px 120px at 90% 90%, rgba(96,165,250,0.06), transparent 25%);
+    }
+    .service-card:hover::after { opacity: 1; transform: scale(1); }
+    .service-card:focus { outline: 3px solid rgba(99,102,241,0.18); outline-offset: 6px; }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 flex items-center justify-between px-6 py-4 bg-white/30 backdrop-blur-lg shadow-lg rounded-full max-w-6xl w-[90%] z-50 border border-white/20">
+ <div class="flex items-center space-x-3">
+            <a href="./index.html" ><img src="image.png" alt="Clinic Logo" class="w-12 h-12 object-contain rounded-full"></a>
+      <a href="./index.html" ><span class="text-lg md:text-xl font-semibold text-blue-700">Dr Y S Babu Trust clinic</span></a>
+    </div>
+    <ul class="hidden md:flex space-x-8 text-gray-800 font-medium">
+      <li><a href="./index.html" class="hover:text-blue-700 transition">Home</a></li>
+      <li><a href="./about.html" class="hover:text-blue-700 transition">About</a></li>
+      <li><a href="./services.html" class="hover:text-blue-700 transition">Services</a></li>
+      <li><a href="./success.html" class="hover:text-blue-700 transition">Success Stories</a></li>
+       <li><a href="./contact.html" class="hover:text-blue-700 transition">Contact</a></li>
+    </ul>
+<div class="hidden md:flex space-x-3">
+  <a href="tel:7900220003" class="bg-blue-700 text-white px-5 py-2 rounded-full shadow-lg hover:bg-blue-800 transition">Call Us</a>
+  <button onclick="openAppointmentForm()" class="bg-green-600 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-700 transition">Book Appointment</button>
+</div>
+
+    <button onclick="toggleMenu()" class="md:hidden text-gray-700 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+      </svg>
+      <script>
+  function toggleMenu() {
+    const menu = document.getElementById("mobile-menu");
+    menu.classList.toggle("hidden");
+  }
+</script>
+
+    </button>
+  </nav>
+  <!-- Mobile Dropdown Menu -->
+<!-- Mobile Menu -->
+<div id="mobile-menu" 
+     class="hidden md:hidden fixed top-20 left-1/2 -translate-x-1/2 w-[90%] bg-white shadow-2xl rounded-2xl border border-gray-200 z-[2000] transform scale-95 opacity-0 transition-all duration-300">
+  <ul class="flex flex-col divide-y divide-gray-100">
+    <li><a href="./index.html" class="block px-6 py-3 text-gray-800 hover:bg-blue-50 hover:text-blue-700 transition">Home</a></li>
+    <li><a href="./about.html" class="block px-6 py-3 text-gray-800 hover:bg-blue-50 hover:text-blue-700 transition">About</a></li>
+    <li><a href="./services.html" class="block px-6 py-3 text-gray-800 hover:bg-blue-50 hover:text-blue-700 transition">Services</a></li>
+    <li><a href="./success.html" class="block px-6 py-3 text-gray-800 hover:bg-blue-50 hover:text-blue-700 transition">Success Stories</a></li>
+    <li><a href="./contact.html" class="block px-6 py-3 text-gray-800 hover:bg-blue-50 hover:text-blue-700 transition">Contact</a></li>
+    <li>
+      <a href="tel:7900220003" 
+         class="block m-4 bg-blue-700 text-white text-center px-4 py-3 rounded-full shadow hover:bg-blue-800 transition">
+        📞 Call Us
+      </a>
+    </li>
+    <li>
+<button onclick="openAppointmentForm()" 
+  class="block bg-green-600 text-white text-center px-4 py-2 rounded-full shadow hover:bg-green-700 transition w-[95%] mx-auto">
+  Book Appointment
+</button>
+
+  </ul>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu.classList.contains('hidden')) {
+      menu.classList.remove('hidden');
+      setTimeout(() => {
+        menu.classList.remove('scale-95', 'opacity-0');
+        menu.classList.add('scale-100', 'opacity-100');
+      }, 10);
+    } else {
+      menu.classList.add('scale-95', 'opacity-0');
+      menu.classList.remove('scale-100', 'opacity-100');
+      setTimeout(() => menu.classList.add('hidden'), 300);
+    }
+  }
+</script>
+
+<!-- Appointment Modal -->
+  <div id="appointment-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[99999]">
+
+    <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg relative">
+      <button onclick="closeAppointmentForm()" class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <h2 class="text-2xl font-bold text-blue-700 mb-2">Schedule an Appointment</h2>
+      <p class="text-gray-600 mb-4">Fill out the form below and we'll contact you to confirm your appointment</p>
+      
+      <form id="appointmentForm" action="https://formsubmit.co/drysbabutrustclinic@gmail.com" method="POST" class="space-y-4">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New Appointment Request">
+        <input type="hidden" name="_template" value="table">
+
+        <div class="flex space-x-4">
+          <input type="text" name="First Name" placeholder="First Name" required class="w-1/2 border rounded px-3 py-2">
+          <input type="text" name="Last Name" placeholder="Last Name" required class="w-1/2 border rounded px-3 py-2">
+        </div>
+        <input type="email" name="Email" placeholder="Email" class="w-full border rounded px-3 py-2">
+        <input type="tel" name="Phone Number" placeholder="Phone Number" required class="w-full border rounded px-3 py-2">
+        <input type="text" name="Service Needed" placeholder="Service Needed" class="w-full border rounded px-3 py-2">
+        <input type="date" name="Preferred Date" class="w-full border rounded px-3 py-2">
+        <textarea name="Additional Message" placeholder="Tell us about your symptoms or any specific concerns..." rows="4" class="w-full border rounded px-3 py-2"></textarea>
+        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">Schedule Appointment</button>
+      </form>
+
+      <p id="successMsg" class="hidden text-green-600 font-semibold text-center mt-4">✅ Thank you! We will reach out soon.</p>
+    </div>
+  </div>
+  <!-- Services Section -->
+  <section id="services" class="wrap">
+    <header>
+      <div>
+        <h1 class="text-2xl font-bold text-blue-700 tarun">Dr Y S Babu Trust clinic</h1>
+        <p class="text-gray-600 tarun">Our Success stories</p>
+      </div>
+    </header>
+    <main class="grid">
+      <article class="service-card" tabindex="0">
+        <img src="success/1.png" alt="Imaging">
+        <div class="content"><h3 class="title">Shivamma&Narasimha from Karnataka</h3></div>
+      </article>
+      <article class="service-card" tabindex="0">
+        <img src="success/2.png" alt="Consultation">
+        <div class="content"><h3 class="title">Venkata Chary & Saisree From MehaboobNagar</h3></div>
+      </article>
+      <article class="service-card" tabindex="0">
+        <img src="success/3.png" alt="Lab">
+        <div class="content"><h3 class="title">Gayathri Sitamma Naidu From Srikakulam</h3></div>
+      </article>
+      <article class="service-card" tabindex="0">
+        <img src="success/4.png" alt="Therapy">
+        <div class="content"><h3 class="title">Ravi Kumar Uma Maheaswari From Chennai</h3></div>
+      </article>
+      <article class="service-card" tabindex="0">
+        <img src="success/5.png" alt="Dental">
+        <div class="content"><h3 class="title">Ramesh & Jhansi From Koduru</h3></div>
+      </article>
+      <article class="service-card" tabindex="0">
+        <img src="success/6.png" alt="Vaccination">
+        <div class="content"><h3 class="title">Rajeswari & Keshava From Dharmapoor</h3></div>
+      </article>
+      <article class="service-card" tabindex="0">
+        <img src="success/7.png" alt="Minor Procedures">
+        <div class="content"><h3 class="title">Siva kumari&Sambashiva Rao From Vijayawada</h3></div>
+      </article>
+      <article class="service-card" tabindex="0">
+        <img src="success/8.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Amar Singh &Shivaneela From Hyderabad</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/9.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Rajesh&Vijetha From Kothagudem</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/10.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Sanyasi Rao&Satyavathi From Vijayanagaram</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/11.png" alt="Cardiology">
+        <div class="content"><h3 class="title">M.D Izahar&S.shaheena From Banglore</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/12.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Venkateswar Rao&Sushma From Ravulapalem</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/13.png" alt="Cardiology">
+        <div class="content"><h3 class="title">P.sanjeevarao & sinduja from gokavaram</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/14.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Vinodhreddy & ishwarya from Nalgonda</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/15.png" alt="Cardiology">
+        <div class="content"><h3 class="title">T.suresh& Godhavari From Telangana</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/16.png" alt="Cardiology">
+        <div class="content"><h3 class="title">C.Ravi & ambika from Raichur</h3></div>
+      </article>
+        <article class="service-card" tabindex="0">
+        <img src="success/17.png" alt="Cardiology">
+        <div class="content"><h3 class="title">G.Narendar & Janaki From Vizag</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/18.png" alt="Cardiology">
+        <div class="content"><h3 class="title">P.Janakirai & Deepakrishnarao From hyd</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/19.png" alt="Cardiology">
+        <div class="content"><h3 class="title">M.Lakshmanrao & gamini From srikakulam</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/20.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Ramesh & Kalyani</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/21.png" alt="Cardiology">
+        <div class="content"><h3 class="title">T.Arun Kumar & Mounika From Tenali</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/22.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Sowjanya & Manikanta From Karimnagar</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/23.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Naresh Naveen Kumar & Rishitha From Rayachoty</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/24.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Ramya & Gopi From Tenali</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/25.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Sulochana & Sai kumar
+From Hyderabad</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/26.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Hima Bindu & Mukteshwar Rao From Madhya Pradesh</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/27.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Aruna sree & Mallikharjuna From Kuppam</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/28.png" alt="Cardiology">
+        <div class="content"><h3 class="title">sowjanaya & Anudeep
+From shadnagar</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/29.png" alt="Cardiology">
+        <div class="content"><h3 class="title">30
+Lakshmi Sirisha & Praveen Kumar
+From Ongole</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/30.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Rajeswari &Srinivas From Warangal</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/31.png" alt="Cardiology">
+        <div class="content"><h3 class="title">vijaykumar & Nagamani(Elizabeth)
+From Telangana</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/32.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Karimulla & Mahoomchand
+From Proddutur</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/33.png" alt="Cardiology">
+        <div class="content"><h3 class="title">న్యాచురల్ ప్రెగ్నెన్సీ</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/34.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Sanjay & Shalini From HYD</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/35.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Amulaya & Ramu
+From Gurajala</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/36.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Raju & sushma
+FROM Hyd</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/37.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Nageema & Syed pasha
+From Khammam</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/38.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Rajkumar & Rekha
+From Dharmapuri</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/39.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Chinnaobulamma Saikumar Frm Kadapa</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/40.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Mallikarjun &saraswathi From Telangana</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/41.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Manasa & Mallesh From HYD</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/42.png" alt="Cardiology">
+        <div class="content"><h3 class="title">varsha & Anil
+Frm Telangana</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/43.png" alt="Cardiology">
+        <div class="content"><h3 class="title">ง
+Madhavi & jeevan kumar From Kalavakurthi</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/44.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Leela & Raju
+From Suryapet</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/45.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Lakshmi srilatha & Thathaji Frm Peddapatnam</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/46.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Nagendramma&Narasimhamraju From Ananthpur</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/47.png" alt="Cardiology">
+        <div class="content"><h3 class="title">G.Malleswar venkateswarlu frm HYDERABAD</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/48.png" alt="Cardiology">
+        <div class="content"><h3 class="title">MALLESWARI & ANAND REDDY
+frem
+BANGLORE</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/49.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Reshma & Kadarvalli From Nandyala</h3></div>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/50.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Bhulakshmi & Dattatri From Bhainsa</h3></div>
+      </article>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/51.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Vijay kumar & Sravanthi From HYD</h3></div>
+      </article>
+      </article>  <article class="service-card" tabindex="0">
+        <img src="success/52.png" alt="Cardiology">
+        <div class="content"><h3 class="title">LAXMI & GOPΙΝΑΤΗ FROM GUNTUR</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/53.png" alt="Cardiology">
+        <div class="content"><h3 class="title">RANJITHA & DIVAKAR
+fran
+MAHARASTRA</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/54.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Madhavi & srinivasulu From Jangalapali</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/55.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Vagdevi & Shanmukhesh From Srikakulam</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/56.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Revathi & Jagadeesh kumar from orissa</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/57.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Akshaya & Yadhaiah
+from Mahaboob Nagar</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/58.png" alt="Cardiology">
+        <div class="content"><h3 class="title">PADMARANI & RAMESH FROM Gurumitkal</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/59.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Ushalakshmi & Ramakrishna
+From
+Khammam</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/60.png" alt="Cardiology">
+        <div class="content"><h3 class="title">న్యాచురల్ ప్రెగ్నెన్సీ</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/61.png" alt="Cardiology">
+        <div class="content"><h3 class="title">న్యాచురల్ ప్రెగ్నెన్సీ</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/62.png" alt="Cardiology">
+        <div class="content"><h3 class="title">న్యాచురల్ ప్రెగ్నెన్సీ</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/63.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Venkata Ramana Rao & Kusuma from Pedavadlapudi</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/64.png" alt="Cardiology">
+        <div class="content"><h3 class="title">vijayalakshmi &
+Nagarjuna
+From
+Kurnool</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/65.png" alt="Cardiology">
+        <div class="content"><h3 class="title">sarika & Chakravarthi From kakinada</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/66.png" alt="Cardiology">
+        <div class="content"><h3 class="title">swapna & Chaitanya
+From Vuyyuru</h3></div>
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/67.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Swapna & Prashanth from Hyderabad</h3></div>
+      
+      
+      
+      
+      
+      
+      </article></article>  <article class="service-card" tabindex="0">
+        <img src="success/68.png" alt="Cardiology">
+        <div class="content"><h3 class="title">Saritha & Bhaskar
+From Telangana</h3></div>
+      </article>
+    </main>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="./index.html" class="hover:text-blue-200 transition">Home</a></li>
+        <li><a href="./about.html" class="hover:text-blue-200 transition">About</a></li>
+        <li><a href="./services.html" class="hover:text-blue-200 transition">Services</a></li>
+        <li><a href="./success.html" class="hover:text-blue-200 transition">Success Stories</a></li>
+        <li><a href="./contact.html" class="hover:text-blue-200 transition">contact</a></li>
+      </ul>
+    </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+        <p><strong>Email:</strong> drysbabutrustclinic@gmail.com</p>
+        <p><strong>Phone:</strong> 7095346063, 7900220003</p>
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+<div>
+  <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+  <div class="flex space-x-3">
+    <a href="https://www.facebook.com/profile.php?id=61572469155606" 
+       target="_blank" rel="noopener noreferrer"
+       class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" 
+           alt="Facebook" class="w-5 h-5 invert">
+    </a>
+    <a href="https://x.com/DrYsBabuTrustcl" 
+       target="_blank" rel="noopener noreferrer"
+       class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" 
+           alt="X (Twitter)" class="w-5 h-5 invert">
+    </a>
+    <a href="https://www.linkedin.com/in/drysbabu-trustclinic-052a8934a/?originalSubdomain=in" 
+       target="_blank" rel="noopener noreferrer"
+       class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" 
+           alt="LinkedIn" class="w-5 h-5 invert">
+    </a>
+    <a href="https://www.youtube.com/@dr.ysbabutrustclinic" 
+       target="_blank" rel="noopener noreferrer"
+       class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" 
+           alt="YouTube" class="w-5 h-5 invert">
+    </a>
+    <a href="https://www.instagram.com/dr.ysbabu/?igsh=MW5reDhpeHMwZ2txMg%3D%3D#" 
+       target="_blank" rel="noopener noreferrer"
+       class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" 
+           alt="Instagram" class="w-5 h-5 invert">
+    </a>
+  </div>
+</div>
+
+
+
+      </div>
+      <div>
+        <h3 class="text-xl font-semibold mb-4">Address</h3>
+        <p>RavindraBharathi School Road,<br>BMPS Road,<br>Prasadampadu,<br>Vijayawada Rural-521108,<br>Andhra Pradesh, INDIA.</p>
+      </div>
+    </div>
+      <div class="border-t border-white/20 text-center py-4 text-sm">
+    © 2025 Dr Y S Babu Trust clinic. All rights reserved. | 
+    <a href="https://genesisits.com/" target="_blank" class="text-blue-300 hover:text-blue-100 transition">
+      Developed by Genesisits
+    </a>
+  </div>
+  </footer>
+
+  <script>
+    // Accordion JS
+    document.querySelectorAll('.container').forEach(container => {
+      const cards = container.querySelectorAll('.card');
+      cards.forEach(card => {
+        const plus = card.querySelector('.plus');
+        const content = card.querySelector('.content');
+        if (!plus) return;
+        plus.addEventListener('click', (e) => {
+          e.stopPropagation();
+          cards.forEach(c => {
+            if (c !== card) {
+              c.querySelector('.plus').classList.remove('rotate');
+              c.querySelector('.content').classList.remove('show');
+            }
+          });
+          plus.classList.toggle('rotate');
+          content.classList.toggle('show');
+        });
+      });
+    });
+  </script>
+  
+</body>
+<script>
+  // Appointment Modal Functions
+  function openAppointmentForm() {
+    document.getElementById("appointment-modal").classList.remove("hidden");
+  }
+
+  function closeAppointmentForm() {
+    document.getElementById("appointment-modal").classList.add("hidden");
+  }
+</script>
+
+<script>
+  // Get all navbar links (both desktop and mobile)
+  const navLinks = document.querySelectorAll('nav ul li a, #mobile-menu ul li a');
+
+  // Get current page file name
+  const currentPage = window.location.pathname.split("/").pop() || 'index.html';
+
+  navLinks.forEach(link => {
+    const linkPage = link.getAttribute('href').split("/").pop();
+
+    if (linkPage === currentPage) {
+      // Add Tailwind classes for active link
+      link.classList.add('text-blue-700', 'font-semibold');
+    }
+  });
+</script>
+<!-- Appointment Modal -->
+<div id="appointment-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
+  <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg relative">
+    <button onclick="closeAppointmentForm()" class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+    <h2 class="text-2xl font-bold text-blue-700 mb-2">Schedule an Appointment</h2>
+    <p class="text-gray-600 mb-4">Fill out the form below and we'll contact you to confirm your appointment</p>
+    
+    <!-- Form -->
+    <form id="appointmentForm" action="https://formsubmit.co/drysbabutrustclinic@gmail.com" method="POST" class="space-y-4">
+      <!-- Hidden Fields -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Appointment Request">
+      <input type="hidden" name="_template" value="table">
+
+      <div class="flex space-x-4">
+        <input type="text" name="First Name" placeholder="First Name" required class="w-1/2 border rounded px-3 py-2">
+        <input type="text" name="Last Name" placeholder="Last Name" required class="w-1/2 border rounded px-3 py-2">
+      </div>
+      <input type="email" name="Email" placeholder="Email" class="w-full border rounded px-3 py-2">
+      <input type="tel" name="Phone Number" placeholder="Phone Number" required class="w-full border rounded px-3 py-2">
+      <input type="text" name="Service Needed" placeholder="Service Needed" class="w-full border rounded px-3 py-2">
+      <input type="date" name="Preferred Date" class="w-full border rounded px-3 py-2">
+      <textarea name="Additional Message" placeholder="Tell us about your symptoms or any specific concerns..." rows="4" class="w-full border rounded px-3 py-2"></textarea>
+      
+      <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
+        Schedule Appointment
+      </button>
+    </form>
+
+    <!-- Success Message -->
+    <p id="successMsg" class="hidden text-green-600 font-semibold text-center mt-4">
+      ✅ Thank you! We will reach out soon.
+    </p>
+  </div>
+</div>
+
+<!-- Floating Bottom Action Bar -->
+<div class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-white shadow-xl rounded-2xl px-6 py-2 flex justify-around items-center gap-6 w-[95%] max-w-sm border border-gray-200 z-40 md:hidden">
+  <!-- Book Appointment -->
+  <button onclick="openAppointmentForm()" 
+    class="flex flex-col items-center text-green-700 hover:text-green-800 transition transform hover:scale-110">
+    <img src="https://cdn-icons-png.flaticon.com/512/747/747310.png" alt="Appointment" class="w-8 h-8 mb-1">
+    <span class="text-xs font-semibold">Book</span>
+  </button>
+  <!-- WhatsApp -->
+  <a href="https://wa.me/7900220003" target="_blank"
+    class="flex flex-col items-center text-green-600 hover:text-green-700 transition transform hover:scale-110">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="w-8 h-8 mb-1">
+    <span class="text-xs font-semibold">WhatsApp</span>
+  </a>
+  <!-- Call -->
+  <a href="tel:7900220003"
+    class="flex flex-col items-center text-blue-600 hover:text-blue-700 transition transform hover:scale-110">
+    <img src="https://cdn-icons-png.flaticon.com/512/724/724664.png" alt="Call" class="w-8 h-8 mb-1">
+    <span class="text-xs font-semibold">Call</span>
+  </a>
+</div>
+
+<script>
+  const form = document.getElementById('appointmentForm');
+  const successMsg = document.getElementById('successMsg');
+  const modal = document.getElementById('appointment-modal');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Stop redirect
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form)
+    }).then(response => {
+      if (response.ok) {
+        form.reset();
+        successMsg.classList.remove('hidden');
+
+        // Hide modal after 2s
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          successMsg.classList.add('hidden');
+        }, 2000);
+      } else {
+        alert('❌ Failed to send. Please try again.');
+      }
+    }).catch(() => {
+      alert('❌ Network error. Please check your connection.');
+    });
+  });
+</script>
+
+
+
+</html>

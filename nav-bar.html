@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinic Navbar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+    function openAppointmentForm() {
+      document.getElementById('appointment-modal').classList.remove('hidden');
+      document.getElementById('successMsg').classList.add('hidden'); // Hide success message
+    }
+    function closeAppointmentForm() {
+      document.getElementById('appointment-modal').classList.add('hidden');
+    }
+  </script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Navbar -->
+  <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 flex items-center justify-between px-6 py-4 bg-white/30 backdrop-blur-lg shadow-lg rounded-full max-w-6xl w-[90%] z-50 border border-white/20">
+    
+    <!-- Logo + Clinic Name -->
+    <div class="flex items-center space-x-3">
+      <img src="image.png" alt="Clinic Logo" class="w-12 h-12 object-contain rounded-full">
+      <span class="text-lg md:text-xl font-semibold text-blue-700">DR YS Babu Trustclinic</span>
+    </div>
+
+    <!-- Desktop Menu -->
+    <ul class="hidden md:flex space-x-8 text-gray-800 font-medium">
+      <li><a href="#home" class="hover:text-blue-700 transition">Home</a></li>
+      <li><a href="#about" class="hover:text-blue-700 transition">About</a></li>
+      <li><a href="#services" class="hover:text-blue-700 transition">Services</a></li>
+      <li><a href="#success" class="hover:text-blue-700 transition">Success Stories</a></li>
+    </ul>
+
+    <!-- Contact + Book Appointment Buttons -->
+    <div class="hidden md:flex space-x-3">
+      <a href="tel:7032822571" class="bg-blue-700 text-white px-5 py-2 rounded-full shadow-lg hover:bg-blue-800 transition">
+        Contact
+      </a>
+      <button onclick="openAppointmentForm()" class="bg-green-600 text-white px-5 py-2 rounded-full shadow-lg hover:bg-green-700 transition">
+        Book Appointment
+      </button>
+    </div>
+
+    <!-- Hamburger Icon -->
+    <button onclick="toggleMenu()" class="md:hidden text-gray-700 focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white/80 backdrop-blur-lg shadow-lg rounded-xl mt-28 mx-auto p-4 w-[90%] border border-white/20 fixed left-1/2 transform -translate-x-1/2 z-40">
+    <ul class="flex flex-col space-y-4 text-gray-800 font-medium">
+      <li><a href="#home" class="hover:text-blue-700 transition">Home</a></li>
+      <li><a href="#about" class="hover:text-blue-700 transition">About</a></li>
+      <li><a href="#services" class="hover:text-blue-700 transition">Services</a></li>
+      <li><a href="#success" class="hover:text-blue-700 transition">Success Stories</a></li>
+      <li>
+        <a href="tel:7032822571" class="block bg-blue-700 text-white text-center px-4 py-2 rounded-full shadow hover:bg-blue-800 transition">
+          Contact
+        </a>
+      </li>
+      <li>
+        <button onclick="openAppointmentForm()" class="block bg-green-600 text-white text-center px-4 py-2 rounded-full shadow hover:bg-green-700 transition w-full">
+          Book Appointment
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Appointment Modal -->
+  <div id="appointment-modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg relative">
+      <button onclick="closeAppointmentForm()" class="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <h2 class="text-2xl font-bold text-blue-700 mb-2">Schedule an Appointment</h2>
+      <p class="text-gray-600 mb-4">Fill out the form below and we'll contact you to confirm your appointment</p>
+      
+      <!-- Form -->
+      <form id="appointmentForm" action="https://formsubmit.co/test@mail.com" method="POST" class="space-y-4">
+        <!-- Hidden Fields for FormSubmit -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New Appointment Request">
+        <input type="hidden" name="_template" value="table">
+
+        <div class="flex space-x-4">
+          <input type="text" name="First Name" placeholder="First Name" required class="w-1/2 border rounded px-3 py-2">
+          <input type="text" name="Last Name" placeholder="Last Name" required class="w-1/2 border rounded px-3 py-2">
+        </div>
+        <input type="email" name="Email" placeholder="Email" required class="w-full border rounded px-3 py-2">
+        <input type="tel" name="Phone Number" placeholder="Phone Number" required class="w-full border rounded px-3 py-2">
+        
+        <!-- Service Needed as Input -->
+        <input type="text" name="Service Needed" placeholder="Service Needed" required class="w-full border rounded px-3 py-2">
+        
+        <!-- Preferred Date with Calendar -->
+        <input type="date" name="Preferred Date" required class="w-full border rounded px-3 py-2">
+        
+        <textarea name="Additional Message" placeholder="Tell us about your symptoms or any specific concerns..." rows="4" class="w-full border rounded px-3 py-2"></textarea>
+        
+        <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
+          Schedule Appointment
+        </button>
+      </form>
+
+      <!-- Success Message -->
+      <p id="successMsg" class="hidden text-green-600 font-semibold text-center mt-4">
+        ✅ Thank you! We will reach out soon.
+      </p>
+    </div>
+  </div>
+
+  <!-- Dummy Sections for Navigation -->
+  <section id="home" class="mt-40 p-6 text-center">
+    <h1 class="text-4xl font-bold text-blue-700 mb-4">Welcome to DR YS Babu Trustclinic</h1>
+    <p class="text-gray-700 mb-6">Providing the best healthcare services with trust and care.</p>
+  </section>
+
+  <section id="about" class="p-10 bg-gray-200">
+    <h2 class="text-3xl font-bold mb-4">About Us</h2>
+    <p>Our clinic offers high-quality healthcare services to improve your well-being.</p>
+  </section>
+
+  <section id="services" class="p-10">
+    <h2 class="text-3xl font-bold mb-4">Our Services</h2>
+    <ul class="list-disc pl-6">
+      <li>Dental Care</li>
+      <li>Skin Care</li>
+      <li>Eye Care</li>
+    </ul>
+  </section>
+
+  <section id="success" class="p-10 bg-gray-200">
+    <h2 class="text-3xl font-bold mb-4">Success Stories</h2>
+    <p>Read about the experiences of our happy patients.</p>
+  </section>
+
+  <!-- JavaScript for handling FormSubmit with custom success message and auto-close -->
+  <script>
+    const form = document.getElementById('appointmentForm');
+    const successMsg = document.getElementById('successMsg');
+    const modal = document.getElementById('appointment-modal');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // prevent redirect
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form)
+      }).then(response => {
+        form.reset();
+        successMsg.classList.remove('hidden');
+
+        // Close the modal after 2 seconds
+        setTimeout(() => {
+          modal.classList.add('hidden');
+        }, 2000);
+      }).catch(error => {
+        alert('Something went wrong. Please try again.');
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+      
+       <section class="bg-gray-50 py-12">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Hero Section -->
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-10">
+      
+      <!-- Doctor Image -->
+      <div class="w-full md:w-1/3">
+        <div class="w-full h-80 rounded-2xl shadow-lg overflow-hidden">
+          <img src="aboutweb2.jpg" alt="Dr. Y.S. Babu" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- Intro Details -->
+      <div class="w-full md:w-2/3">
+        <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-4">About Dr. Y.S. Babu</h1>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          <strong>Dr. Y.S. Babu MBBS, DGO</strong> is a renowned <strong>Gynecologist & Fertility Specialist</strong> with over <strong>30 years of experience</strong> in fertility, gynecology, and obstetrics. He has helped thousands of couples achieve natural pregnancies through his proven treatment methods.
+        </p>
+        <ul class="list-disc ml-5 text-gray-700 space-y-2">
+          <li>Zone Chairman, Lions Club</li>
+          <li>President, Walkers Club</li>
+          <li>Three times Best Doctor Award – United Govt of Andhra Pradesh</li>
+          <li>Dr. Abdul Kalam Award Winner, 2023</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="my-10 border-t border-gray-300"></div>
+
+    <!-- About Clinic -->
+    <div>
+      <h2 class="text-2xl font-semibold text-blue-800 mb-4">About Dr. YS Babu Trust Clinic</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        <strong>Dr. YS Babu Trust Clinic</strong> is a leading fertility clinic in Vijayawada, Andhra Pradesh. Over <strong>15,000+ couples</strong> have successfully conceived through Dr. Babu's unique treatment approach, even after repeated failures with IUI, IVF, or surgeries.
+      </p>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        Dr. Babu specializes in achieving <strong>natural pregnancy</strong> in complex cases such as Azoospermia, Bilateral Tubal Block, PCOS, and Varicocele – without surgery or IVF. His treatment uses only English medicines and is highly effective.
+      </p>
+    </div>
+
+    <!-- Special Note -->
+    <div class="bg-blue-100 p-6 rounded-xl shadow-md mt-8">
+      <h3 class="text-xl font-semibold text-blue-800 mb-2">Why Choose Dr. YS Babu?</h3>
+      <ul class="list-disc ml-5 text-gray-700 space-y-2">
+        <li>One consultation for complete lab investigations.</li>
+        <li>Courier service available for medications.</li>
+        <li>OP Fees: ₹500 per year or till pregnancy.</li>
+        <li>Watch real patient stories on 
+          <a href="https://youtube.com" class="text-blue-600 underline">Yakkati Hub YouTube Channel</a>.
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+ <!-- Footer -->
+<footer class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-900 text-white mt-16">
+  <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+    
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:text-blue-200 transition">Home</a></li>
+        <li><a href="#" class="hover:text-blue-200 transition">About</a></li>
+        <li><a href="#" class="hover:text-blue-200 transition">Services</a></li>
+        <li><a href="#" class="hover:text-blue-200 transition">Success Stories</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+      <p class="mb-2"><strong>Email:</strong> drysbabutrustclinic@gmail.com</p>
+      <p class="mb-2"><strong>Phone:</strong> 7095346063, 7900220003</p>
+    </div>
+
+    <!-- Social Media -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+      <div class="flex space-x-3">
+        <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" class="w-5 h-5 invert"></a>
+        <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter" class="w-5 h-5 invert"></a>
+        <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn" class="w-5 h-5 invert"></a>
+        <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" class="w-5 h-5 invert"></a>
+        <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-white/20 transition"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" class="w-5 h-5 invert"></a>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Address</h3>
+      <p>
+        RavindraBharathi School Road,<br>
+        BMPS Road,<br>
+        Prasadampadu,<br>
+        Vijayawada Rural-521108,<br>
+        Andhra Pradesh, INDIA.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-white/20 text-center py-4 text-sm">
+    © 2025 DR YS Babu Trustclinic. All rights reserved.
+  </div>
+</footer>
